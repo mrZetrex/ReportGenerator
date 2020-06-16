@@ -15,7 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 public class TakerXmlClass {
-    private String pageWidth, pageHeight;
+    private static String pageWidth, pageHeight;
     private List<Column> listOfColumns;
 
     public void getSettings (File file) throws SAXException, IOException, ParserConfigurationException {
@@ -64,10 +64,10 @@ public class TakerXmlClass {
             }
         }
     }
-    public String getPageWidth(){
+    public static String getPageWidth(){
         return pageWidth;
     }
-    public String getPageHeight(){
+    public static String getPageHeight(){
         return pageHeight;
     }
     public List<Column> getListOfColumns(){
