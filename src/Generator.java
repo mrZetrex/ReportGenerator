@@ -9,6 +9,7 @@ public class Generator {
     private String bLine = " | ";
     private String cLine = " |";
     public static int countLine = 0;
+    public static boolean checkGap = false;
 
     public Generator(StringBuilder lineString, List<Column> list) {
         this.lineString = lineString;
@@ -110,7 +111,7 @@ public class Generator {
                 countLine++;
                 stree.append(checkCountLine(countLine));
                 stree.append(aLine + getSpace(widthNumberColumn) + bLine + s + getSpace(widthDateColumn, s) + bLine + mas[1] + getSpace(widthNameColumn, mas[1]) + cLine + "\n");
-                countLine++;               
+                countLine++;
                 stree.append(checkCountLine(countLine));
                 //System.out.printf(String.valueOf(stree));
                 StringBuilder stre2 = new StringBuilder();
@@ -125,7 +126,7 @@ public class Generator {
                 stree.append(aLine + id + getSpace(widthNumberColumn, id) + bLine + date + getSpace(widthDateColumn, date) + bLine + name + getSpace(widthNameColumn, name) + cLine + "\n");
                 //System.out.printf(String.valueOf(stree));
                 countLine++;
-                checkCountLine(countLine);
+                stree.append(checkCountLine(countLine));
             }
         }
         return stree;
@@ -173,8 +174,12 @@ public class Generator {
         if (count == Integer.parseInt(TakerXmlClass.getPageHeight())) {
             countLine = 0;
             String gap = "~\n";
+            checkGap = true;
             return gap ;
         }
         return ("");
+    }
+    static void setCheckGap(boolean off){
+        checkGap = off;
     }
 }
