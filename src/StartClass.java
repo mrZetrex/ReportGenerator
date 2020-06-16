@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.w3c.dom.ls.LSOutput;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,7 +7,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Formatter;
 import java.util.List;
 
 
@@ -38,17 +35,16 @@ public class StartClass {
             wr.write(String.valueOf(titleString));
             wr.write(String.valueOf(lineString));
             Generator.incrCountLine();
-
             for (int i = 0; i < parser.getListOfID().size(); i++) {
                 List<String> idList = parser.getListOfID();
                 List<String> dateList = parser.getListOfDate();
                 List<String> nameList = parser.getListOfName();
-                
+
                 wr.write(String.valueOf(gen.getTable(idList.get(i), dateList.get(i), nameList.get(i))));
                 wr.write(String.valueOf(lineString));
                 Generator.incrCountLine();
                 wr.write(Generator.checkCountLine(Generator.countLine));
-                if(gen.checkGap){
+                if (gen.checkGap) {
                     wr.write(String.valueOf(titleString));
                     wr.write(String.valueOf(lineString));
                     Generator.incrCountLine();
@@ -57,5 +53,4 @@ public class StartClass {
             }
         }
     }
-
 }
