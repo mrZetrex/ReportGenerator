@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import org.w3c.dom.ls.LSOutput;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,8 +20,6 @@ public class StartClass {
         TakerXmlClass taker = new TakerXmlClass();
         File xmlFile = new File(args[0]);
         File dataFile = new File(args[1]);
-        //File xmlFile = new File("settings.xml");
-        //File dataFile = new File("source-data.tsv");
 
         try (BufferedWriter wr = Files.newBufferedWriter(Paths.get(args[2]), StandardCharsets.UTF_16)) {
             parser.getData(dataFile);
@@ -33,33 +33,22 @@ public class StartClass {
             //Создаем титульный заголовок и разрыв
             StringBuilder titleString = gen.getTitleString(list);
             lineString = gen.getLineString(taker.getPageWidth());
-            String gap = "~\n";
 
             //запись
-            //  System.out.printf(String.valueOf(titleString));
-            //  System.out.printf(String.valueOf(lineString));
             wr.write(String.valueOf(titleString));
             wr.write(String.valueOf(lineString));
-            int count = 2;
+            Generator.incrCountLine();
 
             for (int i = 0; i < parser.getListOfID().size(); i++) {
-                Formatter fr = new Formatter();
-                fr.format("| %-" + list.get(0).getWidthColumn() + "s | %-" + list.get(1).getWidthColumn() + "." + list.get(1).getWidthColumn() + "s | %-" + list.get(2).getWidthColumn() + "." + list.get(2).getWidthColumn() + "s |\n", parser.getListOfID().get(i), parser.getListOfDate().get(i), parser.getListOfName().get(i));
-                // System.out.printf(String.valueOf(fr));
-                //System.out.printf(String.valueOf(lineString));
-                wr.write(String.valueOf(fr));
+                List<String> idList = parser.getListOfID();
+                List<String> dateList = parser.getListOfDate();
+                List<String> nameList = parser.getListOfName();
+                wr.write(String.valueOf(gen.getTable(idList.get(i), dateList.get(i), nameList.get(i))));
                 wr.write(String.valueOf(lineString));
-                fr.close();
-                if (count == Integer.parseInt(taker.getPageHeight()) / 2) {
-                    // System.out.printf(gap);
-                    // System.out.printf(String.valueOf(titleString));
-                    // System.out.printf(String.valueOf(lineString));
-                    wr.write(gap);
-                    wr.write(String.valueOf(titleString));
-                    wr.write(String.valueOf(lineString));
-                    count = 0;
-                } else count++;
+                Generator.incrCountLine();
+                wr.write(Generator.checkCountLine(Generator.countLine));
             }
         }
     }
+
 }
