@@ -21,6 +21,10 @@ public class StartClass {
         File xmlFile = new File(args[0]);
         File dataFile = new File(args[1]);
 
+        List<String> idList = parser.getListOfID();
+        List<String> dateList = parser.getListOfDate();
+        List<String> nameList = parser.getListOfName();
+
         try (BufferedWriter wr = Files.newBufferedWriter(Paths.get(args[2]), StandardCharsets.UTF_16)) {
             parser.getData(dataFile);
             taker.getSettings(xmlFile);
@@ -40,9 +44,6 @@ public class StartClass {
             Generator.incrCountLine();
 
             for (int i = 0; i < parser.getListOfID().size(); i++) {
-                List<String> idList = parser.getListOfID();
-                List<String> dateList = parser.getListOfDate();
-                List<String> nameList = parser.getListOfName();
                 wr.write(String.valueOf(gen.getTable(idList.get(i), dateList.get(i), nameList.get(i))));
                 wr.write(String.valueOf(lineString));
                 Generator.incrCountLine();
