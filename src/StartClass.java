@@ -47,6 +47,12 @@ public class StartClass {
                 wr.write(String.valueOf(lineString));
                 Generator.incrCountLine();
                 wr.write(Generator.checkCountLine(Generator.countLine));
+                if(gen.checkGap){
+                    wr.write(String.valueOf(titleString));
+                    wr.write(String.valueOf(lineString));
+                    Generator.incrCountLine();
+                    Generator.setCheckGap(false);
+                }
             }
         }
     }
