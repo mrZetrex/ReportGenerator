@@ -110,8 +110,7 @@ public class Generator {
                 countLine++;
                 stree.append(checkCountLine(countLine));
                 stree.append(aLine + getSpace(widthNumberColumn) + bLine + s + getSpace(widthDateColumn, s) + bLine + mas[1] + getSpace(widthNameColumn, mas[1]) + cLine + "\n");
-                countLine++;
-                stree.append(checkCountLine(countLine));
+                countLine++;               
                 stree.append(checkCountLine(countLine));
                 //System.out.printf(String.valueOf(stree));
                 StringBuilder stre2 = new StringBuilder();
